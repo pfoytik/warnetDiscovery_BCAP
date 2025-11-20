@@ -1,0 +1,808 @@
+# Economic Node Test Network - 30 Node Configuration
+# This network demonstrates Economic Node implementation in Warnet
+# 
+# Distribution:
+# - 5 Economic Nodes (17%)
+# - 20 Relay Nodes (66%)
+# - 5 Constrained Nodes (17%)
+
+network:
+  name: economic-node-test-30
+  description: "Test network with Economic Nodes for BCAP scenario testing"
+  
+nodes:
+  # ============================================================================
+  # ECONOMIC NODES (5 nodes, 17% of network)
+  # ============================================================================
+  
+  # Exchange Node 1 - Tier 1 (largest)
+  - name: exchange-tier1-coinbase
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - economic_node
+      - exchange
+      - tier_1
+      - high_volume
+    metadata:
+      weight: 15  # Highest economic influence
+      node_type: exchange
+      adoption_speed: fast  # Quick to adopt/reject changes
+    bitcoin_config:
+      maxconnections: 2000
+      maxmempool: 10000  # 10GB
+      rpcthreads: 32
+      txindex: 1  # Exchanges typically need full tx index
+      listen: 1
+      discover: 1
+    resources:
+      requests:
+        cpu: "4000m"
+        memory: "16Gi"
+      limits:
+        cpu: "8000m"
+        memory: "32Gi"
+    connections:
+      # Connect to other economic nodes
+      - exchange-tier1-binance
+      - exchange-tier2-kraken
+      - payment-processor-bitpay
+      - custody-fidelity
+      # Connect to many relay nodes (hub position)
+      - relay-node-1
+      - relay-node-2
+      - relay-node-5
+      - relay-node-7
+      - relay-node-10
+      - relay-node-15
+      - relay-node-18
+  
+  # Exchange Node 2 - Tier 1
+  - name: exchange-tier1-binance
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - economic_node
+      - exchange
+      - tier_1
+      - high_volume
+    metadata:
+      weight: 15
+      node_type: exchange
+      adoption_speed: fast
+    bitcoin_config:
+      maxconnections: 2000
+      maxmempool: 10000
+      rpcthreads: 32
+      txindex: 1
+    resources:
+      requests:
+        cpu: "4000m"
+        memory: "16Gi"
+      limits:
+        cpu: "8000m"
+        memory: "32Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - exchange-tier2-kraken
+      - payment-processor-bitpay
+      - relay-node-3
+      - relay-node-4
+      - relay-node-6
+      - relay-node-8
+      - relay-node-12
+      - relay-node-16
+      - relay-node-19
+  
+  # Exchange Node 3 - Tier 2 (medium)
+  - name: exchange-tier2-kraken
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - economic_node
+      - exchange
+      - tier_2
+      - medium_volume
+    metadata:
+      weight: 10
+      node_type: exchange
+      adoption_speed: medium
+    bitcoin_config:
+      maxconnections: 1000
+      maxmempool: 5000  # 5GB
+      rpcthreads: 16
+      txindex: 1
+    resources:
+      requests:
+        cpu: "2000m"
+        memory: "8Gi"
+      limits:
+        cpu: "4000m"
+        memory: "16Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - exchange-tier1-binance
+      - custody-fidelity
+      - relay-node-2
+      - relay-node-9
+      - relay-node-11
+      - relay-node-14
+      - relay-node-17
+  
+  # Payment Processor
+  - name: payment-processor-bitpay
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - economic_node
+      - payment_processor
+      - medium_volume
+    metadata:
+      weight: 8
+      node_type: payment_processor
+      adoption_speed: medium
+    bitcoin_config:
+      maxconnections: 500
+      maxmempool: 2000  # 2GB
+      rpcthreads: 16
+      # Payment processors may want faster propagation
+      mempoolexpiry: 1  # 1 hour instead of default 72
+    resources:
+      requests:
+        cpu: "2000m"
+        memory: "4Gi"
+      limits:
+        cpu: "4000m"
+        memory: "8Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - exchange-tier1-binance
+      - relay-node-1
+      - relay-node-5
+      - relay-node-13
+      - relay-node-20
+  
+  # Custody Provider
+  - name: custody-fidelity
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - economic_node
+      - custody
+      - high_security
+      - low_volume
+    metadata:
+      weight: 7
+      node_type: custody
+      adoption_speed: slow  # Conservative, slow to change
+    bitcoin_config:
+      maxconnections: 300
+      maxmempool: 3000  # 3GB
+      rpcthreads: 8
+      # Higher security settings
+      listen: 1
+      discover: 0  # Manual peer selection only
+    resources:
+      requests:
+        cpu: "1000m"
+        memory: "6Gi"
+      limits:
+        cpu: "2000m"
+        memory: "12Gi"
+    connections:
+      - exchange-tier1-binance
+      - exchange-tier2-kraken
+      - relay-node-3
+      - relay-node-7
+      - relay-node-11
+  
+  # ============================================================================
+  # RELAY NODES (20 nodes, 66% of network)
+  # Standard Bitcoin Core nodes with default settings
+  # ============================================================================
+  
+  - name: relay-node-1
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - payment-processor-bitpay
+      - relay-node-2
+      - relay-node-5
+      - constrained-node-1
+  
+  - name: relay-node-2
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - exchange-tier2-kraken
+      - relay-node-1
+      - relay-node-3
+      - relay-node-6
+  
+  - name: relay-node-3
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-binance
+      - custody-fidelity
+      - relay-node-2
+      - relay-node-4
+      - constrained-node-2
+  
+  - name: relay-node-4
+    image: "bitcoindevproject/bitcoin:26.0"  # Mixed version
+    tags:
+      - relay_node
+      - standard
+      - version_previous
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-binance
+      - relay-node-3
+      - relay-node-5
+      - relay-node-8
+  
+  - name: relay-node-5
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - payment-processor-bitpay
+      - relay-node-1
+      - relay-node-4
+      - relay-node-9
+  
+  - name: relay-node-6
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-binance
+      - relay-node-2
+      - relay-node-7
+      - relay-node-10
+  
+  - name: relay-node-7
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - custody-fidelity
+      - relay-node-6
+      - relay-node-11
+      - constrained-node-3
+  
+  - name: relay-node-8
+    image: "bitcoindevproject/bitcoin:26.0"  # Mixed version
+    tags:
+      - relay_node
+      - standard
+      - version_previous
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-binance
+      - relay-node-4
+      - relay-node-9
+      - relay-node-12
+  
+  - name: relay-node-9
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier2-kraken
+      - relay-node-5
+      - relay-node-8
+      - relay-node-13
+  
+  - name: relay-node-10
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - relay-node-6
+      - relay-node-11
+      - relay-node-14
+  
+  - name: relay-node-11
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier2-kraken
+      - custody-fidelity
+      - relay-node-7
+      - relay-node-10
+      - relay-node-15
+  
+  - name: relay-node-12
+    image: "bitcoindevproject/bitcoin:25.0"  # Older version
+    tags:
+      - relay_node
+      - standard
+      - version_old
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-binance
+      - relay-node-8
+      - relay-node-13
+      - relay-node-16
+  
+  - name: relay-node-13
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - payment-processor-bitpay
+      - relay-node-9
+      - relay-node-12
+      - relay-node-17
+  
+  - name: relay-node-14
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier2-kraken
+      - relay-node-10
+      - relay-node-15
+      - relay-node-18
+      - constrained-node-4
+  
+  - name: relay-node-15
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - relay-node-11
+      - relay-node-14
+      - relay-node-19
+  
+  - name: relay-node-16
+    image: "bitcoindevproject/bitcoin:26.0"  # Mixed version
+    tags:
+      - relay_node
+      - standard
+      - version_previous
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-binance
+      - relay-node-12
+      - relay-node-17
+      - relay-node-20
+  
+  - name: relay-node-17
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier2-kraken
+      - relay-node-13
+      - relay-node-16
+      - relay-node-18
+  
+  - name: relay-node-18
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-coinbase
+      - relay-node-14
+      - relay-node-17
+      - relay-node-19
+      - constrained-node-5
+  
+  - name: relay-node-19
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - exchange-tier1-binance
+      - relay-node-15
+      - relay-node-18
+      - relay-node-20
+  
+  - name: relay-node-20
+    image: "bitcoindevproject/bitcoin:27.0"
+    tags:
+      - relay_node
+      - standard
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1000m"
+        memory: "4Gi"
+    connections:
+      - payment-processor-bitpay
+      - relay-node-16
+      - relay-node-19
+  
+  # ============================================================================
+  # CONSTRAINED NODES (5 nodes, 17% of network)
+  # Resource-limited nodes, older versions
+  # ============================================================================
+  
+  - name: constrained-node-1
+    image: "bitcoindevproject/bitcoin:25.0"
+    tags:
+      - constrained_node
+      - resource_limited
+      - version_old
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50  # 50MB only
+    resources:
+      requests:
+        cpu: "125m"
+        memory: "512Mi"
+      limits:
+        cpu: "250m"
+        memory: "1Gi"
+    connections:
+      - relay-node-1
+      - relay-node-5
+  
+  - name: constrained-node-2
+    image: "bitcoindevproject/bitcoin:24.0"
+    tags:
+      - constrained_node
+      - resource_limited
+      - version_very_old
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: "125m"
+        memory: "512Mi"
+      limits:
+        cpu: "250m"
+        memory: "1Gi"
+    connections:
+      - relay-node-3
+      - relay-node-7
+  
+  - name: constrained-node-3
+    image: "bitcoindevproject/bitcoin:25.0"
+    tags:
+      - constrained_node
+      - resource_limited
+      - version_old
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: "125m"
+        memory: "512Mi"
+      limits:
+        cpu: "250m"
+        memory: "1Gi"
+    connections:
+      - relay-node-7
+      - relay-node-11
+  
+  - name: constrained-node-4
+    image: "bitcoindevproject/bitcoin:25.0"
+    tags:
+      - constrained_node
+      - resource_limited
+      - version_old
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: "125m"
+        memory: "512Mi"
+      limits:
+        cpu: "250m"
+        memory: "1Gi"
+    connections:
+      - relay-node-14
+      - relay-node-18
+  
+  - name: constrained-node-5
+    image: "bitcoindevproject/bitcoin:24.0"
+    tags:
+      - constrained_node
+      - resource_limited
+      - version_very_old
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: "125m"
+        memory: "512Mi"
+      limits:
+        cpu: "250m"
+        memory: "1Gi"
+    connections:
+      - relay-node-18
+      - relay-node-20
