@@ -1,5 +1,4 @@
 # warnetDiscovery_BCAP
-## Abstract
 ### Quantifying Bitcoin Network Resilience Through Critical Scenario Discovery 
 
 #### Abstract: 
