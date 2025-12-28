@@ -1,0 +1,3367 @@
+network:
+  name: economic-network-100
+  description: Network with 15 Economic Nodes
+  nodes:
+  - name: economic-payment_processor-0
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - payment_processor
+    - medium_volume
+    - operational_chokepoint
+    metadata:
+      node_type: payment_processor
+      entity_name: Payment Processor
+      adoption_speed: medium
+      custody_btc: 30000
+      supply_percentage: 0.15
+      custody_notes: Operational wallets, minimal custody
+      daily_deposits_btc: 10000
+      daily_withdrawals_btc: 9500
+      daily_volume_btc: 10000
+      payment_notes: High-frequency merchant payments, operational chokepoint
+      consensus_weight: 1.0
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: moderate
+    bitcoin_config:
+      maxconnections: 500
+      maxmempool: 2000
+      rpcthreads: 16
+      txindex: 0
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 8Gi
+      limits:
+        cpu: 8000m
+        memory: 8Gi
+    connections:
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - economic-custody_provider-5
+    - relay-node-30
+    - constrained-node-8
+    - relay-node-48
+    - economic-regional_exchange-8
+    - relay-node-16
+    - constrained-node-13
+    - relay-node-60
+    - relay-node-12
+    - relay-node-36
+    - relay-node-46
+    - relay-node-22
+    - constrained-node-10
+    - relay-node-35
+  - name: economic-major_exchange-1
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - major_exchange
+    - exchange
+    - high_volume
+    metadata:
+      node_type: major_exchange
+      entity_name: Major Exchange
+      adoption_speed: fast
+      custody_btc: 2000000
+      supply_percentage: 10.3
+      custody_notes: Hot wallets + cold storage
+      daily_deposits_btc: 100000
+      daily_withdrawals_btc: 95000
+      daily_volume_btc: 100000
+      payment_notes: High-frequency retail + institutional
+      consensus_weight: 10.3
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: critical
+    bitcoin_config:
+      maxconnections: 2000
+      maxmempool: 10000
+      rpcthreads: 32
+      txindex: 1
+    resources:
+      requests:
+        cpu: 8000m
+        memory: 32Gi
+      limits:
+        cpu: 16000m
+        memory: 32Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - economic-custody_provider-5
+    - relay-node-0
+    - economic-payment_processor-13
+    - relay-node-8
+    - economic-regional_exchange-6
+    - economic-regional_exchange-9
+    - relay-node-22
+    - relay-node-28
+    - relay-node-59
+    - relay-node-34
+    - relay-node-24
+    - constrained-node-16
+    - relay-node-60
+    - relay-node-2
+    - relay-node-20
+    - economic-regional_exchange-8
+    - relay-node-63
+    - constrained-node-4
+    - relay-node-57
+    - relay-node-41
+    - relay-node-50
+    - relay-node-58
+    - constrained-node-0
+    - relay-node-17
+  - name: economic-payment_processor-2
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - payment_processor
+    - medium_volume
+    - operational_chokepoint
+    metadata:
+      node_type: payment_processor
+      entity_name: Payment Processor
+      adoption_speed: medium
+      custody_btc: 30000
+      supply_percentage: 0.15
+      custody_notes: Operational wallets, minimal custody
+      daily_deposits_btc: 10000
+      daily_withdrawals_btc: 9500
+      daily_volume_btc: 10000
+      payment_notes: High-frequency merchant payments, operational chokepoint
+      consensus_weight: 1.0
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: moderate
+    bitcoin_config:
+      maxconnections: 500
+      maxmempool: 2000
+      rpcthreads: 16
+      txindex: 0
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 8Gi
+      limits:
+        cpu: 8000m
+        memory: 8Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - economic-custody_provider-5
+    - relay-node-23
+    - relay-node-49
+    - relay-node-64
+    - relay-node-37
+    - relay-node-53
+    - relay-node-48
+    - relay-node-13
+    - relay-node-7
+    - relay-node-40
+    - constrained-node-4
+    - relay-node-0
+    - relay-node-10
+    - relay-node-9
+    - constrained-node-13
+    - relay-node-32
+    - relay-node-51
+    - constrained-node-11
+    - relay-node-42
+    - relay-node-12
+  - name: economic-major_exchange-3
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - major_exchange
+    - exchange
+    - high_volume
+    metadata:
+      node_type: major_exchange
+      entity_name: Major Exchange
+      adoption_speed: fast
+      custody_btc: 2000000
+      supply_percentage: 10.3
+      custody_notes: Hot wallets + cold storage
+      daily_deposits_btc: 100000
+      daily_withdrawals_btc: 95000
+      daily_volume_btc: 100000
+      payment_notes: High-frequency retail + institutional
+      consensus_weight: 10.3
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: critical
+    bitcoin_config:
+      maxconnections: 2000
+      maxmempool: 10000
+      rpcthreads: 32
+      txindex: 1
+    resources:
+      requests:
+        cpu: 8000m
+        memory: 32Gi
+      limits:
+        cpu: 16000m
+        memory: 32Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-regional_exchange-4
+    - economic-custody_provider-5
+    - relay-node-49
+    - relay-node-60
+    - relay-node-53
+    - constrained-node-4
+    - relay-node-19
+    - relay-node-2
+    - constrained-node-15
+    - relay-node-13
+    - constrained-node-6
+    - relay-node-23
+    - economic-regional_exchange-8
+    - relay-node-7
+    - relay-node-64
+    - relay-node-31
+    - constrained-node-17
+    - constrained-node-2
+    - constrained-node-1
+    - relay-node-25
+  - name: economic-regional_exchange-4
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - regional_exchange
+    - exchange
+    - high_volume
+    metadata:
+      node_type: regional_exchange
+      entity_name: Regional Exchange
+      adoption_speed: medium
+      custody_btc: 450000
+      supply_percentage: 2.3
+      custody_notes: Regional focus, strong security practices
+      daily_deposits_btc: 30000
+      daily_withdrawals_btc: 28500
+      daily_volume_btc: 30000
+      payment_notes: Medium-volume regional trading
+      consensus_weight: 2.3
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: significant
+    bitcoin_config:
+      maxconnections: 1000
+      maxmempool: 5000
+      rpcthreads: 16
+      txindex: 1
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 16Gi
+      limits:
+        cpu: 8000m
+        memory: 16Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-custody_provider-5
+    - relay-node-64
+    - economic-payment_processor-11
+    - relay-node-27
+    - relay-node-24
+    - constrained-node-7
+    - relay-node-55
+    - relay-node-23
+    - relay-node-38
+    - economic-payment_processor-12
+    - constrained-node-1
+    - constrained-node-8
+    - constrained-node-17
+    - relay-node-3
+    - relay-node-48
+    - relay-node-9
+  - name: economic-custody_provider-5
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - custody_provider
+    - high_security
+    - institutional
+    metadata:
+      node_type: custody_provider
+      entity_name: Custody Provider
+      adoption_speed: slow
+      custody_btc: 700000
+      supply_percentage: 3.6
+      custody_notes: Institutional custody, cold storage dominant
+      daily_deposits_btc: 3000
+      daily_withdrawals_btc: 2850
+      daily_volume_btc: 3000
+      payment_notes: Low-frequency institutional movements
+      consensus_weight: 3.6
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: significant
+    bitcoin_config:
+      maxconnections: 300
+      maxmempool: 3000
+      rpcthreads: 16
+      txindex: 0
+    resources:
+      requests:
+        cpu: 2000m
+        memory: 12Gi
+      limits:
+        cpu: 4000m
+        memory: 12Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - relay-node-24
+    - relay-node-60
+    - relay-node-12
+    - constrained-node-13
+    - relay-node-53
+    - relay-node-27
+    - economic-regional_exchange-9
+    - relay-node-36
+    - relay-node-31
+    - relay-node-16
+    - relay-node-43
+    - relay-node-20
+    - relay-node-23
+    - relay-node-7
+    - relay-node-40
+    - relay-node-34
+    - relay-node-9
+    - constrained-node-1
+    - relay-node-0
+  - name: economic-regional_exchange-6
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - regional_exchange
+    - exchange
+    - high_volume
+    metadata:
+      node_type: regional_exchange
+      entity_name: Regional Exchange
+      adoption_speed: medium
+      custody_btc: 450000
+      supply_percentage: 2.3
+      custody_notes: Regional focus, strong security practices
+      daily_deposits_btc: 30000
+      daily_withdrawals_btc: 28500
+      daily_volume_btc: 30000
+      payment_notes: Medium-volume regional trading
+      consensus_weight: 2.3
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: significant
+    bitcoin_config:
+      maxconnections: 1000
+      maxmempool: 5000
+      rpcthreads: 16
+      txindex: 1
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 16Gi
+      limits:
+        cpu: 8000m
+        memory: 16Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - relay-node-52
+    - relay-node-45
+    - relay-node-60
+    - relay-node-3
+    - economic-custody_provider-5
+    - relay-node-33
+    - relay-node-22
+    - constrained-node-18
+    - relay-node-2
+    - constrained-node-10
+    - relay-node-35
+    - relay-node-39
+    - constrained-node-13
+    - relay-node-46
+  - name: economic-payment_processor-7
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - payment_processor
+    - medium_volume
+    - operational_chokepoint
+    metadata:
+      node_type: payment_processor
+      entity_name: Payment Processor
+      adoption_speed: medium
+      custody_btc: 30000
+      supply_percentage: 0.15
+      custody_notes: Operational wallets, minimal custody
+      daily_deposits_btc: 10000
+      daily_withdrawals_btc: 9500
+      daily_volume_btc: 10000
+      payment_notes: High-frequency merchant payments, operational chokepoint
+      consensus_weight: 1.0
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: moderate
+    bitcoin_config:
+      maxconnections: 500
+      maxmempool: 2000
+      rpcthreads: 16
+      txindex: 0
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 8Gi
+      limits:
+        cpu: 8000m
+        memory: 8Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - relay-node-52
+    - relay-node-47
+    - relay-node-33
+    - relay-node-43
+    - constrained-node-5
+    - relay-node-8
+    - relay-node-50
+    - relay-node-55
+    - constrained-node-6
+    - relay-node-51
+    - relay-node-39
+    - relay-node-49
+    - relay-node-10
+    - relay-node-58
+    - relay-node-48
+    - relay-node-2
+    - relay-node-42
+  - name: economic-regional_exchange-8
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - regional_exchange
+    - exchange
+    - high_volume
+    metadata:
+      node_type: regional_exchange
+      entity_name: Regional Exchange
+      adoption_speed: medium
+      custody_btc: 450000
+      supply_percentage: 2.3
+      custody_notes: Regional focus, strong security practices
+      daily_deposits_btc: 30000
+      daily_withdrawals_btc: 28500
+      daily_volume_btc: 30000
+      payment_notes: Medium-volume regional trading
+      consensus_weight: 2.3
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: significant
+    bitcoin_config:
+      maxconnections: 1000
+      maxmempool: 5000
+      rpcthreads: 16
+      txindex: 1
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 16Gi
+      limits:
+        cpu: 8000m
+        memory: 16Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - relay-node-42
+    - relay-node-55
+    - economic-major_exchange-10
+    - economic-payment_processor-12
+    - relay-node-5
+    - constrained-node-16
+    - constrained-node-0
+    - constrained-node-17
+    - relay-node-51
+    - constrained-node-1
+    - relay-node-28
+  - name: economic-regional_exchange-9
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - regional_exchange
+    - exchange
+    - high_volume
+    metadata:
+      node_type: regional_exchange
+      entity_name: Regional Exchange
+      adoption_speed: medium
+      custody_btc: 450000
+      supply_percentage: 2.3
+      custody_notes: Regional focus, strong security practices
+      daily_deposits_btc: 30000
+      daily_withdrawals_btc: 28500
+      daily_volume_btc: 30000
+      payment_notes: Medium-volume regional trading
+      consensus_weight: 2.3
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: significant
+    bitcoin_config:
+      maxconnections: 1000
+      maxmempool: 5000
+      rpcthreads: 16
+      txindex: 1
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 16Gi
+      limits:
+        cpu: 8000m
+        memory: 16Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - constrained-node-9
+    - constrained-node-11
+    - relay-node-56
+    - economic-payment_processor-11
+    - relay-node-4
+    - relay-node-1
+    - relay-node-55
+    - constrained-node-2
+    - relay-node-37
+    - constrained-node-14
+    - constrained-node-5
+    - relay-node-26
+    - relay-node-7
+    - constrained-node-17
+    - relay-node-28
+    - relay-node-5
+    - relay-node-33
+    - constrained-node-8
+    - relay-node-57
+    - relay-node-24
+    - relay-node-46
+  - name: economic-major_exchange-10
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - major_exchange
+    - exchange
+    - high_volume
+    metadata:
+      node_type: major_exchange
+      entity_name: Major Exchange
+      adoption_speed: fast
+      custody_btc: 2000000
+      supply_percentage: 10.3
+      custody_notes: Hot wallets + cold storage
+      daily_deposits_btc: 100000
+      daily_withdrawals_btc: 95000
+      daily_volume_btc: 100000
+      payment_notes: High-frequency retail + institutional
+      consensus_weight: 10.3
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: critical
+    bitcoin_config:
+      maxconnections: 2000
+      maxmempool: 10000
+      rpcthreads: 32
+      txindex: 1
+    resources:
+      requests:
+        cpu: 8000m
+        memory: 32Gi
+      limits:
+        cpu: 16000m
+        memory: 32Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - economic-regional_exchange-8
+    - constrained-node-4
+    - relay-node-24
+    - constrained-node-7
+    - relay-node-36
+    - constrained-node-12
+    - relay-node-25
+    - economic-payment_processor-7
+    - relay-node-26
+    - relay-node-18
+    - economic-payment_processor-12
+    - relay-node-20
+    - constrained-node-6
+    - relay-node-52
+    - constrained-node-8
+    - relay-node-22
+    - economic-regional_exchange-9
+    - economic-custody_provider-14
+    - relay-node-7
+  - name: economic-payment_processor-11
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - payment_processor
+    - medium_volume
+    - operational_chokepoint
+    metadata:
+      node_type: payment_processor
+      entity_name: Payment Processor
+      adoption_speed: medium
+      custody_btc: 30000
+      supply_percentage: 0.15
+      custody_notes: Operational wallets, minimal custody
+      daily_deposits_btc: 10000
+      daily_withdrawals_btc: 9500
+      daily_volume_btc: 10000
+      payment_notes: High-frequency merchant payments, operational chokepoint
+      consensus_weight: 1.0
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: moderate
+    bitcoin_config:
+      maxconnections: 500
+      maxmempool: 2000
+      rpcthreads: 16
+      txindex: 0
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 8Gi
+      limits:
+        cpu: 8000m
+        memory: 8Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - relay-node-36
+    - relay-node-46
+    - relay-node-59
+    - relay-node-30
+    - economic-regional_exchange-6
+    - constrained-node-3
+    - relay-node-25
+    - relay-node-38
+    - relay-node-56
+    - economic-major_exchange-10
+    - constrained-node-1
+    - relay-node-10
+    - relay-node-21
+    - relay-node-3
+    - relay-node-51
+    - economic-payment_processor-13
+    - constrained-node-18
+    - relay-node-44
+    - economic-custody_provider-14
+    - relay-node-35
+  - name: economic-payment_processor-12
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - payment_processor
+    - medium_volume
+    - operational_chokepoint
+    metadata:
+      node_type: payment_processor
+      entity_name: Payment Processor
+      adoption_speed: medium
+      custody_btc: 30000
+      supply_percentage: 0.15
+      custody_notes: Operational wallets, minimal custody
+      daily_deposits_btc: 10000
+      daily_withdrawals_btc: 9500
+      daily_volume_btc: 10000
+      payment_notes: High-frequency merchant payments, operational chokepoint
+      consensus_weight: 1.0
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: moderate
+    bitcoin_config:
+      maxconnections: 500
+      maxmempool: 2000
+      rpcthreads: 16
+      txindex: 0
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 8Gi
+      limits:
+        cpu: 8000m
+        memory: 8Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - relay-node-44
+    - relay-node-37
+    - constrained-node-10
+    - relay-node-39
+    - constrained-node-17
+    - economic-regional_exchange-8
+    - relay-node-32
+    - constrained-node-12
+    - relay-node-64
+    - relay-node-58
+    - constrained-node-6
+    - relay-node-33
+    - relay-node-55
+    - constrained-node-0
+    - relay-node-57
+    - relay-node-59
+    - relay-node-49
+    - relay-node-31
+    - relay-node-18
+    - relay-node-6
+    - relay-node-51
+  - name: economic-payment_processor-13
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - payment_processor
+    - medium_volume
+    - operational_chokepoint
+    metadata:
+      node_type: payment_processor
+      entity_name: Payment Processor
+      adoption_speed: medium
+      custody_btc: 30000
+      supply_percentage: 0.15
+      custody_notes: Operational wallets, minimal custody
+      daily_deposits_btc: 10000
+      daily_withdrawals_btc: 9500
+      daily_volume_btc: 10000
+      payment_notes: High-frequency merchant payments, operational chokepoint
+      consensus_weight: 1.0
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: moderate
+    bitcoin_config:
+      maxconnections: 500
+      maxmempool: 2000
+      rpcthreads: 16
+      txindex: 0
+    resources:
+      requests:
+        cpu: 4000m
+        memory: 8Gi
+      limits:
+        cpu: 8000m
+        memory: 8Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - relay-node-35
+    - relay-node-47
+    - constrained-node-2
+    - constrained-node-16
+    - constrained-node-17
+    - constrained-node-7
+    - relay-node-53
+    - economic-payment_processor-12
+    - relay-node-17
+    - relay-node-52
+    - constrained-node-3
+    - relay-node-43
+    - constrained-node-12
+    - constrained-node-13
+    - relay-node-30
+    - relay-node-29
+    - relay-node-57
+    - relay-node-16
+    - relay-node-63
+    - economic-regional_exchange-8
+  - name: economic-custody_provider-14
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - economic_node
+    - custody_provider
+    - high_security
+    - institutional
+    metadata:
+      node_type: custody_provider
+      entity_name: Custody Provider
+      adoption_speed: slow
+      custody_btc: 700000
+      supply_percentage: 3.6
+      custody_notes: Institutional custody, cold storage dominant
+      daily_deposits_btc: 3000
+      daily_withdrawals_btc: 2850
+      daily_volume_btc: 3000
+      payment_notes: Low-frequency institutional movements
+      consensus_weight: 3.6
+      weight_calculation: custody_primary_flow_secondary
+      economic_influence: significant
+    bitcoin_config:
+      maxconnections: 300
+      maxmempool: 3000
+      rpcthreads: 16
+      txindex: 0
+    resources:
+      requests:
+        cpu: 2000m
+        memory: 12Gi
+      limits:
+        cpu: 4000m
+        memory: 12Gi
+    connections:
+    - economic-payment_processor-0
+    - economic-major_exchange-1
+    - economic-payment_processor-2
+    - economic-major_exchange-3
+    - economic-regional_exchange-4
+    - relay-node-54
+    - economic-major_exchange-10
+    - relay-node-8
+    - constrained-node-5
+    - relay-node-38
+    - relay-node-28
+    - relay-node-36
+    - constrained-node-19
+    - constrained-node-16
+    - relay-node-27
+    - economic-payment_processor-12
+    - relay-node-21
+    - relay-node-6
+  - name: relay-node-0
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-11
+    - relay-node-23
+    - relay-node-21
+    - relay-node-50
+    - relay-node-38
+    - economic-major_exchange-3
+    - relay-node-18
+    - constrained-node-16
+    - relay-node-39
+    - relay-node-26
+    - relay-node-47
+    - economic-regional_exchange-8
+  - name: relay-node-1
+    image: bitcoindevproject/bitcoin:24.0
+    tags:
+    - relay_node
+    - standard
+    - version_24_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-12
+    - economic-regional_exchange-9
+    - economic-custody_provider-5
+    - relay-node-24
+    - relay-node-50
+    - economic-major_exchange-1
+    - relay-node-41
+    - relay-node-26
+    - relay-node-44
+    - relay-node-20
+    - economic-regional_exchange-4
+  - name: relay-node-2
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-9
+    - relay-node-24
+    - economic-payment_processor-7
+    - relay-node-61
+    - economic-regional_exchange-6
+    - relay-node-33
+    - relay-node-15
+    - relay-node-60
+    - relay-node-42
+    - relay-node-21
+    - relay-node-41
+    - constrained-node-17
+  - name: relay-node-3
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-12
+    - relay-node-50
+    - relay-node-30
+    - relay-node-12
+    - relay-node-57
+    - constrained-node-2
+    - economic-payment_processor-7
+    - constrained-node-13
+    - economic-custody_provider-14
+  - name: relay-node-4
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-7
+    - relay-node-48
+    - relay-node-20
+    - relay-node-10
+    - relay-node-18
+    - relay-node-43
+    - relay-node-23
+    - relay-node-38
+    - relay-node-21
+    - relay-node-16
+    - economic-custody_provider-14
+    - relay-node-54
+    - relay-node-24
+  - name: relay-node-5
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-6
+    - relay-node-31
+    - relay-node-9
+    - constrained-node-4
+    - relay-node-60
+    - relay-node-29
+    - economic-major_exchange-3
+    - constrained-node-15
+    - relay-node-10
+  - name: relay-node-6
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-13
+    - relay-node-42
+    - economic-payment_processor-11
+    - relay-node-32
+    - constrained-node-12
+    - relay-node-21
+    - constrained-node-9
+    - relay-node-41
+    - relay-node-61
+    - relay-node-26
+    - relay-node-64
+    - relay-node-48
+  - name: relay-node-7
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-8
+    - relay-node-40
+    - relay-node-5
+    - relay-node-14
+    - relay-node-23
+    - relay-node-32
+    - economic-payment_processor-7
+    - economic-major_exchange-10
+    - economic-payment_processor-13
+    - relay-node-16
+  - name: relay-node-8
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-11
+    - relay-node-6
+    - economic-major_exchange-3
+    - relay-node-42
+    - relay-node-43
+    - relay-node-60
+    - constrained-node-5
+    - relay-node-9
+    - constrained-node-19
+    - relay-node-24
+    - relay-node-59
+    - economic-payment_processor-12
+    - relay-node-48
+  - name: relay-node-9
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-custody_provider-5
+    - relay-node-44
+    - economic-payment_processor-13
+    - relay-node-51
+    - relay-node-14
+    - relay-node-41
+    - relay-node-32
+    - relay-node-26
+    - relay-node-4
+    - relay-node-37
+    - relay-node-0
+    - constrained-node-12
+  - name: relay-node-10
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-custody_provider-5
+    - relay-node-11
+    - constrained-node-19
+    - relay-node-38
+    - relay-node-32
+    - relay-node-43
+    - relay-node-17
+    - relay-node-3
+    - relay-node-6
+  - name: relay-node-11
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-11
+    - relay-node-39
+    - relay-node-56
+    - relay-node-21
+    - constrained-node-1
+    - relay-node-14
+    - economic-major_exchange-1
+    - relay-node-54
+    - relay-node-43
+    - relay-node-23
+    - relay-node-60
+    - constrained-node-8
+    - relay-node-49
+    - economic-custody_provider-14
+  - name: relay-node-12
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-3
+    - relay-node-0
+    - relay-node-18
+    - relay-node-61
+    - relay-node-33
+    - relay-node-57
+    - relay-node-24
+    - relay-node-32
+    - relay-node-64
+    - relay-node-8
+  - name: relay-node-13
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-1
+    - relay-node-57
+    - economic-payment_processor-2
+    - relay-node-52
+    - relay-node-59
+    - relay-node-20
+    - relay-node-36
+    - relay-node-22
+  - name: relay-node-14
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-10
+    - relay-node-12
+    - constrained-node-5
+    - relay-node-63
+    - relay-node-57
+    - constrained-node-10
+    - constrained-node-13
+    - economic-regional_exchange-9
+    - constrained-node-0
+    - relay-node-3
+  - name: relay-node-15
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-custody_provider-5
+    - constrained-node-15
+    - relay-node-9
+    - relay-node-13
+    - relay-node-24
+    - relay-node-34
+    - relay-node-20
+    - relay-node-7
+    - relay-node-53
+    - relay-node-14
+  - name: relay-node-16
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-9
+    - economic-custody_provider-5
+    - relay-node-38
+    - relay-node-18
+    - constrained-node-9
+    - constrained-node-10
+    - relay-node-29
+    - economic-payment_processor-11
+    - constrained-node-13
+    - relay-node-31
+    - economic-custody_provider-14
+    - relay-node-39
+    - relay-node-59
+    - economic-payment_processor-2
+    - economic-major_exchange-1
+  - name: relay-node-17
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-2
+    - relay-node-22
+    - relay-node-21
+    - relay-node-37
+    - economic-custody_provider-14
+    - economic-major_exchange-3
+    - relay-node-63
+    - economic-regional_exchange-9
+    - relay-node-61
+    - constrained-node-10
+    - constrained-node-18
+  - name: relay-node-18
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - relay_node
+    - standard
+    - version_25_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-11
+    - relay-node-54
+    - relay-node-9
+    - constrained-node-8
+    - relay-node-0
+    - relay-node-2
+    - relay-node-29
+    - constrained-node-0
+    - relay-node-35
+    - relay-node-7
+    - relay-node-16
+  - name: relay-node-19
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-3
+    - relay-node-12
+    - constrained-node-4
+    - relay-node-26
+    - relay-node-1
+    - constrained-node-18
+    - relay-node-63
+    - relay-node-64
+    - relay-node-6
+    - relay-node-59
+  - name: relay-node-20
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-9
+    - relay-node-63
+    - economic-regional_exchange-8
+    - constrained-node-1
+    - relay-node-36
+    - relay-node-50
+    - constrained-node-18
+    - relay-node-42
+    - economic-payment_processor-12
+    - relay-node-7
+    - relay-node-17
+    - relay-node-37
+  - name: relay-node-21
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - relay_node
+    - standard
+    - version_25_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-2
+    - constrained-node-15
+    - relay-node-59
+    - relay-node-57
+    - economic-major_exchange-10
+    - relay-node-1
+    - relay-node-38
+    - relay-node-0
+    - constrained-node-12
+    - relay-node-18
+    - relay-node-7
+    - relay-node-20
+    - relay-node-54
+  - name: relay-node-22
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-11
+    - economic-regional_exchange-4
+    - relay-node-49
+    - relay-node-48
+    - relay-node-13
+    - relay-node-1
+    - constrained-node-18
+    - economic-major_exchange-3
+    - relay-node-33
+    - relay-node-46
+    - relay-node-24
+    - relay-node-3
+    - relay-node-62
+  - name: relay-node-23
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-10
+    - constrained-node-9
+    - constrained-node-13
+    - relay-node-34
+    - constrained-node-2
+    - relay-node-45
+    - relay-node-6
+    - relay-node-13
+    - relay-node-20
+    - constrained-node-0
+  - name: relay-node-24
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - relay_node
+    - standard
+    - version_25_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-2
+    - relay-node-3
+    - relay-node-13
+    - relay-node-21
+    - constrained-node-6
+    - relay-node-49
+    - relay-node-50
+    - constrained-node-13
+    - relay-node-7
+    - relay-node-31
+  - name: relay-node-25
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - relay_node
+    - standard
+    - version_25_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-custody_provider-14
+    - economic-payment_processor-12
+    - relay-node-23
+    - economic-major_exchange-10
+    - relay-node-54
+    - relay-node-22
+    - relay-node-63
+    - constrained-node-12
+  - name: relay-node-26
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-7
+    - constrained-node-19
+    - economic-payment_processor-2
+    - relay-node-41
+    - relay-node-13
+    - relay-node-33
+    - constrained-node-11
+    - relay-node-44
+    - constrained-node-14
+    - relay-node-32
+    - relay-node-5
+    - constrained-node-3
+    - relay-node-17
+    - relay-node-23
+    - relay-node-63
+  - name: relay-node-27
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-custody_provider-14
+    - economic-payment_processor-13
+    - economic-regional_exchange-9
+    - constrained-node-4
+    - relay-node-61
+    - relay-node-23
+    - relay-node-22
+    - relay-node-51
+    - relay-node-18
+    - relay-node-7
+    - economic-major_exchange-10
+    - relay-node-13
+    - relay-node-21
+  - name: relay-node-28
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-3
+    - relay-node-2
+    - relay-node-22
+    - relay-node-26
+    - relay-node-39
+    - relay-node-61
+    - constrained-node-17
+    - relay-node-56
+    - relay-node-42
+    - economic-regional_exchange-6
+    - economic-payment_processor-0
+    - relay-node-10
+    - relay-node-35
+    - constrained-node-19
+    - constrained-node-10
+  - name: relay-node-29
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-0
+    - relay-node-50
+    - economic-payment_processor-2
+    - constrained-node-8
+    - economic-payment_processor-13
+    - relay-node-31
+    - economic-regional_exchange-6
+    - relay-node-20
+    - constrained-node-1
+    - economic-major_exchange-1
+  - name: relay-node-30
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-0
+    - relay-node-60
+    - relay-node-40
+    - constrained-node-10
+    - relay-node-32
+    - relay-node-58
+    - relay-node-31
+    - relay-node-54
+    - relay-node-14
+    - relay-node-38
+    - economic-payment_processor-7
+    - relay-node-8
+  - name: relay-node-31
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-3
+    - constrained-node-1
+    - relay-node-38
+    - relay-node-21
+    - constrained-node-13
+    - relay-node-28
+    - relay-node-37
+    - relay-node-30
+    - economic-regional_exchange-4
+    - relay-node-42
+    - constrained-node-17
+    - relay-node-52
+  - name: relay-node-32
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - relay_node
+    - standard
+    - version_25_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-13
+    - constrained-node-11
+    - economic-payment_processor-0
+    - relay-node-41
+    - relay-node-11
+    - relay-node-37
+    - relay-node-45
+    - relay-node-38
+    - relay-node-39
+  - name: relay-node-33
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-6
+    - economic-payment_processor-12
+    - constrained-node-19
+    - constrained-node-7
+    - relay-node-25
+    - economic-payment_processor-2
+    - relay-node-52
+    - relay-node-60
+    - relay-node-9
+  - name: relay-node-34
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-11
+    - relay-node-45
+    - economic-payment_processor-13
+    - constrained-node-17
+    - relay-node-35
+    - constrained-node-0
+    - relay-node-28
+    - relay-node-63
+    - relay-node-0
+    - relay-node-12
+    - relay-node-8
+    - relay-node-6
+  - name: relay-node-35
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-0
+    - relay-node-22
+    - economic-custody_provider-5
+    - relay-node-47
+    - constrained-node-0
+    - economic-regional_exchange-6
+    - relay-node-12
+    - relay-node-53
+    - constrained-node-8
+    - relay-node-28
+    - relay-node-26
+    - relay-node-23
+  - name: relay-node-36
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-2
+    - constrained-node-4
+    - relay-node-13
+    - relay-node-47
+    - constrained-node-10
+    - relay-node-49
+    - economic-payment_processor-12
+    - relay-node-16
+    - relay-node-10
+  - name: relay-node-37
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-6
+    - relay-node-7
+    - relay-node-43
+    - relay-node-56
+    - relay-node-40
+    - relay-node-8
+    - relay-node-6
+    - economic-major_exchange-1
+    - relay-node-39
+    - relay-node-42
+    - relay-node-58
+    - relay-node-53
+  - name: relay-node-38
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-6
+    - relay-node-29
+    - relay-node-18
+    - constrained-node-16
+    - relay-node-13
+    - relay-node-61
+    - relay-node-23
+    - relay-node-44
+    - relay-node-47
+  - name: relay-node-39
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-1
+    - constrained-node-16
+    - relay-node-57
+    - constrained-node-5
+    - relay-node-35
+    - constrained-node-1
+    - economic-custody_provider-5
+    - relay-node-24
+    - relay-node-23
+    - relay-node-0
+    - relay-node-9
+    - relay-node-43
+    - constrained-node-9
+  - name: relay-node-40
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-12
+    - relay-node-41
+    - relay-node-42
+    - economic-payment_processor-0
+    - relay-node-60
+    - constrained-node-8
+    - constrained-node-10
+    - relay-node-34
+    - constrained-node-14
+    - relay-node-44
+    - relay-node-17
+    - relay-node-9
+    - relay-node-28
+  - name: relay-node-41
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-1
+    - relay-node-62
+    - relay-node-3
+    - relay-node-13
+    - relay-node-8
+    - constrained-node-3
+    - relay-node-46
+    - relay-node-32
+  - name: relay-node-42
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-custody_provider-14
+    - relay-node-40
+    - constrained-node-6
+    - relay-node-61
+    - economic-payment_processor-0
+    - relay-node-25
+    - relay-node-50
+    - relay-node-21
+    - constrained-node-8
+    - constrained-node-2
+    - relay-node-57
+    - relay-node-29
+    - relay-node-7
+    - relay-node-19
+    - relay-node-45
+  - name: relay-node-43
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - relay_node
+    - standard
+    - version_25_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-4
+    - relay-node-51
+    - constrained-node-15
+    - relay-node-20
+    - relay-node-33
+    - relay-node-23
+    - economic-major_exchange-3
+    - relay-node-17
+    - economic-payment_processor-11
+    - relay-node-13
+    - relay-node-53
+    - economic-custody_provider-14
+  - name: relay-node-44
+    image: bitcoindevproject/bitcoin:24.0
+    tags:
+    - relay_node
+    - standard
+    - version_24_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-2
+    - relay-node-64
+    - relay-node-46
+    - constrained-node-7
+    - relay-node-16
+    - economic-custody_provider-14
+    - relay-node-2
+    - relay-node-40
+    - relay-node-39
+  - name: relay-node-45
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-12
+    - economic-regional_exchange-4
+    - economic-major_exchange-1
+    - economic-regional_exchange-8
+    - constrained-node-8
+    - relay-node-60
+    - constrained-node-18
+    - relay-node-53
+  - name: relay-node-46
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-7
+    - relay-node-55
+    - relay-node-61
+    - relay-node-57
+    - constrained-node-6
+    - relay-node-45
+    - relay-node-11
+    - relay-node-56
+    - relay-node-8
+    - economic-major_exchange-3
+    - relay-node-53
+    - constrained-node-1
+    - relay-node-33
+    - relay-node-28
+    - relay-node-62
+  - name: relay-node-47
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-4
+    - relay-node-8
+    - relay-node-60
+    - relay-node-59
+    - relay-node-33
+    - constrained-node-18
+    - economic-custody_provider-5
+    - relay-node-37
+    - relay-node-57
+    - constrained-node-16
+    - relay-node-17
+    - economic-payment_processor-12
+    - relay-node-13
+    - economic-regional_exchange-6
+  - name: relay-node-48
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-11
+    - relay-node-54
+    - relay-node-28
+    - relay-node-47
+    - relay-node-15
+    - economic-regional_exchange-4
+    - economic-payment_processor-12
+    - constrained-node-3
+    - economic-custody_provider-14
+    - relay-node-33
+  - name: relay-node-49
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-6
+    - relay-node-14
+    - relay-node-56
+    - constrained-node-1
+    - relay-node-8
+    - constrained-node-8
+    - relay-node-57
+    - relay-node-42
+    - relay-node-21
+    - constrained-node-7
+    - relay-node-9
+    - constrained-node-4
+    - economic-major_exchange-10
+  - name: relay-node-50
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - relay_node
+    - standard
+    - version_25_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-12
+    - economic-major_exchange-1
+    - relay-node-42
+    - constrained-node-2
+    - economic-custody_provider-5
+    - relay-node-1
+    - relay-node-63
+    - relay-node-27
+    - relay-node-0
+    - constrained-node-18
+    - constrained-node-10
+    - relay-node-23
+    - relay-node-8
+    - relay-node-41
+  - name: relay-node-51
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-0
+    - relay-node-3
+    - constrained-node-7
+    - relay-node-43
+    - relay-node-34
+    - relay-node-47
+    - constrained-node-16
+    - relay-node-64
+    - relay-node-31
+    - relay-node-33
+  - name: relay-node-52
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-11
+    - relay-node-47
+    - economic-payment_processor-7
+    - relay-node-33
+    - relay-node-1
+    - relay-node-4
+    - relay-node-36
+    - relay-node-31
+    - relay-node-34
+    - relay-node-51
+  - name: relay-node-53
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-10
+    - constrained-node-18
+    - economic-payment_processor-7
+    - relay-node-55
+    - constrained-node-9
+    - relay-node-64
+    - economic-regional_exchange-9
+    - economic-major_exchange-1
+  - name: relay-node-54
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-12
+    - constrained-node-0
+    - relay-node-60
+    - economic-regional_exchange-6
+    - relay-node-14
+    - constrained-node-17
+    - relay-node-44
+    - relay-node-12
+    - relay-node-45
+    - economic-payment_processor-11
+    - relay-node-36
+    - relay-node-31
+    - relay-node-8
+    - relay-node-26
+    - relay-node-62
+  - name: relay-node-55
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-0
+    - constrained-node-13
+    - relay-node-51
+    - constrained-node-9
+    - constrained-node-18
+    - relay-node-20
+    - relay-node-11
+    - relay-node-59
+    - economic-regional_exchange-8
+    - relay-node-12
+    - constrained-node-0
+    - economic-payment_processor-12
+    - relay-node-9
+    - relay-node-0
+    - economic-regional_exchange-4
+  - name: relay-node-56
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-13
+    - constrained-node-3
+    - relay-node-42
+    - relay-node-31
+    - relay-node-6
+    - constrained-node-5
+    - relay-node-8
+    - relay-node-28
+    - relay-node-12
+    - relay-node-60
+    - relay-node-38
+    - relay-node-55
+    - relay-node-26
+    - constrained-node-15
+  - name: relay-node-57
+    image: bitcoindevproject/bitcoin:26.0
+    tags:
+    - relay_node
+    - standard
+    - version_26_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-11
+    - constrained-node-3
+    - economic-regional_exchange-9
+    - relay-node-58
+    - relay-node-2
+    - relay-node-33
+    - relay-node-12
+    - economic-major_exchange-1
+    - economic-payment_processor-12
+    - constrained-node-7
+    - relay-node-56
+  - name: relay-node-58
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-4
+    - relay-node-1
+    - relay-node-43
+    - constrained-node-16
+    - economic-regional_exchange-6
+    - relay-node-19
+    - relay-node-53
+    - economic-payment_processor-7
+    - relay-node-54
+    - relay-node-18
+    - relay-node-3
+  - name: relay-node-59
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-4
+    - relay-node-50
+    - relay-node-63
+    - constrained-node-5
+    - relay-node-28
+    - relay-node-38
+    - relay-node-27
+    - relay-node-20
+    - relay-node-21
+    - constrained-node-18
+    - relay-node-48
+    - relay-node-30
+    - relay-node-45
+    - constrained-node-13
+  - name: relay-node-60
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-13
+    - relay-node-1
+    - relay-node-2
+    - relay-node-46
+    - economic-custody_provider-5
+    - relay-node-43
+    - relay-node-42
+    - relay-node-18
+    - relay-node-21
+    - relay-node-17
+    - relay-node-38
+    - constrained-node-5
+    - constrained-node-9
+    - relay-node-13
+  - name: relay-node-61
+    image: bitcoindevproject/bitcoin:24.0
+    tags:
+    - relay_node
+    - standard
+    - version_24_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-regional_exchange-6
+    - relay-node-46
+    - relay-node-45
+    - relay-node-63
+    - relay-node-17
+    - economic-regional_exchange-4
+    - relay-node-59
+    - relay-node-18
+    - relay-node-5
+    - relay-node-49
+    - relay-node-64
+    - economic-payment_processor-2
+    - relay-node-6
+    - relay-node-56
+    - relay-node-57
+  - name: relay-node-62
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-payment_processor-12
+    - relay-node-4
+    - economic-major_exchange-10
+    - economic-regional_exchange-8
+    - relay-node-33
+    - relay-node-55
+    - constrained-node-8
+    - relay-node-61
+    - constrained-node-2
+    - relay-node-12
+    - relay-node-51
+    - relay-node-24
+    - constrained-node-15
+  - name: relay-node-63
+    image: bitcoindevproject/bitcoin:27.0
+    tags:
+    - relay_node
+    - standard
+    - version_latest
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-10
+    - relay-node-0
+    - constrained-node-5
+    - constrained-node-14
+    - relay-node-19
+    - relay-node-47
+    - relay-node-41
+    - economic-payment_processor-11
+  - name: relay-node-64
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - relay_node
+    - standard
+    - version_25_0
+    metadata:
+      weight: 1
+      node_type: relay
+    bitcoin_config:
+      maxconnections: 125
+      maxmempool: 300
+    resources:
+      requests:
+        cpu: 500m
+        memory: 2Gi
+      limits:
+        cpu: 1000m
+        memory: 4Gi
+    connections:
+    - economic-major_exchange-10
+    - relay-node-28
+    - relay-node-12
+    - relay-node-2
+    - relay-node-11
+    - constrained-node-15
+    - relay-node-5
+    - relay-node-18
+    - relay-node-62
+    - relay-node-0
+    - constrained-node-7
+    - relay-node-45
+  - name: constrained-node-0
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - constrained-node-18
+    - relay-node-25
+    - constrained-node-2
+    - relay-node-27
+    - constrained-node-15
+  - name: constrained-node-1
+    image: bitcoindevproject/bitcoin:23.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_23_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-64
+    - relay-node-7
+  - name: constrained-node-2
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-14
+    - economic-regional_exchange-6
+  - name: constrained-node-3
+    image: bitcoindevproject/bitcoin:23.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_23_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - constrained-node-1
+    - constrained-node-14
+  - name: constrained-node-4
+    image: bitcoindevproject/bitcoin:24.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_24_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - constrained-node-0
+    - relay-node-14
+    - relay-node-55
+  - name: constrained-node-5
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-5
+    - relay-node-28
+    - relay-node-20
+  - name: constrained-node-6
+    image: bitcoindevproject/bitcoin:23.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_23_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - constrained-node-3
+    - constrained-node-10
+    - relay-node-23
+    - relay-node-36
+  - name: constrained-node-7
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-61
+    - economic-payment_processor-2
+    - relay-node-44
+    - economic-major_exchange-1
+    - relay-node-15
+  - name: constrained-node-8
+    image: bitcoindevproject/bitcoin:24.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_24_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-30
+    - constrained-node-1
+    - relay-node-21
+    - constrained-node-6
+    - relay-node-45
+  - name: constrained-node-9
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - constrained-node-19
+    - relay-node-44
+    - relay-node-1
+    - relay-node-15
+    - relay-node-64
+  - name: constrained-node-10
+    image: bitcoindevproject/bitcoin:23.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_23_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - economic-regional_exchange-6
+    - relay-node-62
+  - name: constrained-node-11
+    image: bitcoindevproject/bitcoin:23.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_23_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-25
+    - relay-node-23
+    - relay-node-12
+  - name: constrained-node-12
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-56
+    - economic-custody_provider-5
+  - name: constrained-node-13
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-27
+    - constrained-node-16
+  - name: constrained-node-14
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - economic-major_exchange-3
+    - economic-regional_exchange-8
+    - relay-node-16
+    - relay-node-62
+  - name: constrained-node-15
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-1
+    - constrained-node-1
+    - relay-node-16
+    - relay-node-4
+    - economic-payment_processor-13
+  - name: constrained-node-16
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-1
+    - relay-node-32
+    - constrained-node-8
+    - relay-node-21
+  - name: constrained-node-17
+    image: bitcoindevproject/bitcoin:23.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_23_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - constrained-node-4
+    - relay-node-14
+  - name: constrained-node-18
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - relay-node-24
+    - relay-node-63
+  - name: constrained-node-19
+    image: bitcoindevproject/bitcoin:25.0
+    tags:
+    - constrained_node
+    - resource_limited
+    - version_25_0
+    metadata:
+      weight: 0.5
+      node_type: constrained
+    bitcoin_config:
+      maxconnections: 8
+      maxmempool: 50
+    resources:
+      requests:
+        cpu: 125m
+        memory: 512Mi
+      limits:
+        cpu: 250m
+        memory: 1Gi
+    connections:
+    - economic-regional_exchange-9
+    - relay-node-27
+    - relay-node-1

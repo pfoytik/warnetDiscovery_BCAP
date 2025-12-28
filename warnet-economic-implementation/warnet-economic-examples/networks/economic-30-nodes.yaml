@@ -1,10 +1,23 @@
 # Economic Node Test Network - 30 Node Configuration
-# This network demonstrates Economic Node implementation in Warnet
-# 
-# Distribution:
-# - 5 Economic Nodes (17%)
-# - 20 Relay Nodes (66%)
-# - 5 Constrained Nodes (17%)
+# BCAP-Aligned Economic Node Implementation
+#
+# Economic Node Definition (BCAP Framework):
+# "Economic Nodes are full nodes that not only validate and relay transactions,
+#  but also receive and send substantial amounts of bitcoin payments. Economic
+#  Nodes have power and influence which is proportional to the frequency and
+#  volume of payments received."
+#
+# Economic Power Metrics (Dual Model):
+# - PRIMARY: Custody (% of BTC supply under validation)
+# - SECONDARY: Payment volume (daily transaction flow)
+# - DERIVED: Consensus weight (primarily custody-based)
+#
+# Network Distribution:
+# - 5 Economic Nodes (17% of nodes, ~27% of consensus weight)
+# - 20 Relay Nodes (66% of nodes)
+# - 5 Constrained Nodes (17% of nodes)
+#
+# Circulating Supply Assumption: 19,500,000 BTC
 
 network:
   name: economic-node-test-30
@@ -15,18 +28,35 @@ nodes:
   # ECONOMIC NODES (5 nodes, 17% of network)
   # ============================================================================
   
-  # Exchange Node 1 - Tier 1 (largest)
+  # Exchange Node 1 - Tier 1 (MAJOR EXCHANGE: Coinbase-scale)
   - name: exchange-tier1-coinbase
     image: "bitcoindevproject/bitcoin:27.0"
     tags:
       - economic_node
       - exchange
       - tier_1
+      - major_exchange
       - high_volume
     metadata:
-      weight: 15  # Highest economic influence
-      node_type: exchange
+      node_type: major_exchange
+      entity_name: "Coinbase-scale Exchange"
       adoption_speed: fast  # Quick to adopt/reject changes
+
+      # PRIMARY METRIC: Supply Validation (Custody)
+      custody_btc: 2000000  # 2 million BTC in custody
+      supply_percentage: 10.3  # (2M / 19.5M circulating supply)
+      custody_notes: "Hot wallets + cold storage"
+
+      # SECONDARY METRIC: Payment Flow (Daily)
+      daily_deposits_btc: 100000  # Daily customer deposits
+      daily_withdrawals_btc: 95000  # Daily customer withdrawals
+      daily_volume_btc: 100000  # Total daily payment flow
+      payment_notes: "High-frequency retail + institutional"
+
+      # DERIVED: Consensus Weight
+      consensus_weight: 10.3  # Primarily based on custody percentage
+      weight_calculation: "custody_primary_flow_secondary"
+      economic_influence: "critical"
     bitcoin_config:
       maxconnections: 2000
       maxmempool: 10000  # 10GB
@@ -56,18 +86,35 @@ nodes:
       - relay-node-15
       - relay-node-18
   
-  # Exchange Node 2 - Tier 1
+  # Exchange Node 2 - Tier 1 (MAJOR EXCHANGE: Binance-scale)
   - name: exchange-tier1-binance
     image: "bitcoindevproject/bitcoin:27.0"
     tags:
       - economic_node
       - exchange
       - tier_1
+      - major_exchange
       - high_volume
     metadata:
-      weight: 15
-      node_type: exchange
+      node_type: major_exchange
+      entity_name: "Binance-scale Exchange"
       adoption_speed: fast
+
+      # PRIMARY METRIC: Supply Validation (Custody)
+      custody_btc: 2200000  # 2.2 million BTC in custody
+      supply_percentage: 11.3  # (2.2M / 19.5M circulating supply)
+      custody_notes: "Global exchange, largest BTC reserves"
+
+      # SECONDARY METRIC: Payment Flow (Daily)
+      daily_deposits_btc: 110000  # Daily customer deposits
+      daily_withdrawals_btc: 105000  # Daily customer withdrawals
+      daily_volume_btc: 110000  # Total daily payment flow
+      payment_notes: "Highest global trading volume"
+
+      # DERIVED: Consensus Weight
+      consensus_weight: 11.3  # Primarily based on custody percentage
+      weight_calculation: "custody_primary_flow_secondary"
+      economic_influence: "critical"
     bitcoin_config:
       maxconnections: 2000
       maxmempool: 10000
@@ -92,18 +139,35 @@ nodes:
       - relay-node-16
       - relay-node-19
   
-  # Exchange Node 3 - Tier 2 (medium)
+  # Exchange Node 3 - Tier 2 (REGIONAL EXCHANGE: Kraken-scale)
   - name: exchange-tier2-kraken
     image: "bitcoindevproject/bitcoin:27.0"
     tags:
       - economic_node
       - exchange
       - tier_2
+      - regional_exchange
       - medium_volume
     metadata:
-      weight: 10
-      node_type: exchange
+      node_type: regional_exchange
+      entity_name: "Kraken-scale Regional Exchange"
       adoption_speed: medium
+
+      # PRIMARY METRIC: Supply Validation (Custody)
+      custody_btc: 450000  # 450k BTC in custody
+      supply_percentage: 2.3  # (450k / 19.5M circulating supply)
+      custody_notes: "Regional focus, strong security practices"
+
+      # SECONDARY METRIC: Payment Flow (Daily)
+      daily_deposits_btc: 30000  # Daily customer deposits
+      daily_withdrawals_btc: 28000  # Daily customer withdrawals
+      daily_volume_btc: 30000  # Total daily payment flow
+      payment_notes: "Medium-volume regional trading"
+
+      # DERIVED: Consensus Weight
+      consensus_weight: 2.3  # Primarily based on custody percentage
+      weight_calculation: "custody_primary_flow_secondary"
+      economic_influence: "significant"
     bitcoin_config:
       maxconnections: 1000
       maxmempool: 5000  # 5GB
@@ -126,17 +190,34 @@ nodes:
       - relay-node-14
       - relay-node-17
   
-  # Payment Processor
+  # Payment Processor (BitPay/Strike-scale)
   - name: payment-processor-bitpay
     image: "bitcoindevproject/bitcoin:27.0"
     tags:
       - economic_node
       - payment_processor
       - medium_volume
+      - operational_chokepoint
     metadata:
-      weight: 8
       node_type: payment_processor
+      entity_name: "BitPay/Strike-scale Payment Processor"
       adoption_speed: medium
+
+      # PRIMARY METRIC: Supply Validation (Custody)
+      custody_btc: 30000  # 30k BTC in operational wallets
+      supply_percentage: 0.15  # (30k / 19.5M circulating supply)
+      custody_notes: "Hot wallets for payment processing, minimal custody"
+
+      # SECONDARY METRIC: Payment Flow (Daily)
+      daily_deposits_btc: 10000  # Daily merchant/customer payments
+      daily_withdrawals_btc: 9500  # Daily payouts
+      daily_volume_btc: 10000  # Total daily payment flow
+      payment_notes: "High-frequency merchant payments, operational chokepoint"
+
+      # DERIVED: Consensus Weight
+      consensus_weight: 1.0  # Custody-based + operational importance
+      weight_calculation: "custody_primary_flow_secondary"
+      economic_influence: "moderate"
     bitcoin_config:
       maxconnections: 500
       maxmempool: 2000  # 2GB
@@ -158,18 +239,35 @@ nodes:
       - relay-node-13
       - relay-node-20
   
-  # Custody Provider
+  # Custody Provider (Fidelity Digital Assets-scale)
   - name: custody-fidelity
     image: "bitcoindevproject/bitcoin:27.0"
     tags:
       - economic_node
-      - custody
+      - custody_provider
       - high_security
       - low_volume
+      - institutional
     metadata:
-      weight: 7
-      node_type: custody
+      node_type: custody_provider
+      entity_name: "Fidelity Digital Assets-scale Custodian"
       adoption_speed: slow  # Conservative, slow to change
+
+      # PRIMARY METRIC: Supply Validation (Custody)
+      custody_btc: 700000  # 700k BTC in custody
+      supply_percentage: 3.6  # (700k / 19.5M circulating supply)
+      custody_notes: "Institutional custody, cold storage dominant"
+
+      # SECONDARY METRIC: Payment Flow (Daily)
+      daily_deposits_btc: 3000  # Daily institutional deposits
+      daily_withdrawals_btc: 2800  # Daily institutional withdrawals
+      daily_volume_btc: 3000  # Total daily payment flow
+      payment_notes: "Low-frequency institutional movements"
+
+      # DERIVED: Consensus Weight
+      consensus_weight: 3.6  # Primarily based on custody percentage
+      weight_calculation: "custody_primary_flow_secondary"
+      economic_influence: "significant"
     bitcoin_config:
       maxconnections: 300
       maxmempool: 3000  # 3GB

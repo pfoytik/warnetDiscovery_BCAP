@@ -24,36 +24,144 @@ from collections import defaultdict
 
 
 class EconomicNode:
-    """Represents an Economic Node configuration."""
-    
+    """
+    Represents an Economic Node configuration aligned with BCAP framework.
+
+    BCAP Definition:
+    "Economic Nodes are full nodes that not only validate and relay transactions,
+     but also receive and send substantial amounts of bitcoin payments. Economic
+     Nodes have power and influence which is proportional to the frequency and
+     volume of payments received."
+
+    Economic power is measured by:
+    - PRIMARY: Custody (% of BTC supply under validation)
+    - SECONDARY: Payment volume (daily transaction flow)
+    """
+
+    # Node type configurations (BCAP-aligned)
     TYPES = {
-        'exchange_tier1': {'weight': 15, 'connections': 2000, 'mempool': 10000, 'cpu': '8000m', 'memory': '32Gi'},
-        'exchange_tier2': {'weight': 10, 'connections': 1000, 'mempool': 5000, 'cpu': '4000m', 'memory': '16Gi'},
-        'payment_processor': {'weight': 8, 'connections': 500, 'mempool': 2000, 'cpu': '4000m', 'memory': '8Gi'},
-        'custody': {'weight': 7, 'connections': 300, 'mempool': 3000, 'cpu': '2000m', 'memory': '12Gi'},
+        'major_exchange': {
+            'consensus_weight': 10.3,
+            'custody_btc': 2000000,
+            'supply_percentage': 10.3,
+            'daily_volume_btc': 100000,
+            'connections': 2000,
+            'mempool': 10000,
+            'cpu': '8000m',
+            'memory': '32Gi',
+            'entity_type': 'major_exchange',
+            'adoption_speed': 'fast',
+        },
+        'regional_exchange': {
+            'consensus_weight': 2.3,
+            'custody_btc': 450000,
+            'supply_percentage': 2.3,
+            'daily_volume_btc': 30000,
+            'connections': 1000,
+            'mempool': 5000,
+            'cpu': '4000m',
+            'memory': '16Gi',
+            'entity_type': 'regional_exchange',
+            'adoption_speed': 'medium',
+        },
+        'payment_processor': {
+            'consensus_weight': 1.0,
+            'custody_btc': 30000,
+            'supply_percentage': 0.15,
+            'daily_volume_btc': 10000,
+            'connections': 500,
+            'mempool': 2000,
+            'cpu': '4000m',
+            'memory': '8Gi',
+            'entity_type': 'payment_processor',
+            'adoption_speed': 'medium',
+        },
+        'custody_provider': {
+            'consensus_weight': 3.6,
+            'custody_btc': 700000,
+            'supply_percentage': 3.6,
+            'daily_volume_btc': 3000,
+            'connections': 300,
+            'mempool': 3000,
+            'cpu': '2000m',
+            'memory': '12Gi',
+            'entity_type': 'custody_provider',
+            'adoption_speed': 'slow',
+        },
     }
-    
-    def __init__(self, name: str, node_type: str, version: str = "27.0"):
+
+    def __init__(self, name: str, node_type: str, version: str = "27.0",
+                 custody_btc: int = None, daily_volume_btc: int = None):
+        """
+        Initialize an Economic Node.
+
+        Args:
+            name: Node identifier
+            node_type: One of 'major_exchange', 'regional_exchange', 'payment_processor', 'custody_provider'
+            version: Bitcoin Core version (default "27.0")
+            custody_btc: Optional override for BTC in custody
+            daily_volume_btc: Optional override for daily payment volume
+        """
         self.name = name
         self.node_type = node_type
         self.version = version
-        self.config = self.TYPES[node_type]
+        self.config = self.TYPES[node_type].copy()
+
+        # Allow custom custody and volume overrides
+        if custody_btc is not None:
+            self.config['custody_btc'] = custody_btc
+            # Recalculate supply percentage assuming 19.5M circulating
+            self.config['supply_percentage'] = round(custody_btc / 19_500_000 * 100, 2)
+            self.config['consensus_weight'] = self.config['supply_percentage']
+
+        if daily_volume_btc is not None:
+            self.config['daily_volume_btc'] = daily_volume_btc
     
     def to_dict(self) -> Dict:
-        """Convert to Warnet YAML structure."""
+        """Convert to Warnet YAML structure with BCAP-aligned metrics."""
+        # Determine tags based on entity type
+        tags = ['economic_node', self.node_type]
+        if 'exchange' in self.node_type:
+            tags.extend(['exchange', 'high_volume'])
+        elif self.node_type == 'payment_processor':
+            tags.extend(['medium_volume', 'operational_chokepoint'])
+        elif self.node_type == 'custody_provider':
+            tags.extend(['high_security', 'institutional'])
+
+        # Calculate daily deposits/withdrawals (assume 95% withdrawal ratio)
+        daily_volume = self.config['daily_volume_btc']
+        daily_deposits = daily_volume
+        daily_withdrawals = int(daily_volume * 0.95)
+
         return {
             'name': self.name,
             'image': f"bitcoindevproject/bitcoin:{self.version}",
-            'tags': ['economic_node', self.node_type, 'high_volume'],
+            'tags': tags,
             'metadata': {
-                'weight': self.config['weight'],
-                'node_type': self.node_type,
-                'adoption_speed': 'fast' if 'exchange' in self.node_type else 'medium',
+                'node_type': self.config['entity_type'],
+                'entity_name': f"{self.node_type.replace('_', ' ').title()}",
+                'adoption_speed': self.config['adoption_speed'],
+
+                # PRIMARY METRIC: Supply Validation (Custody)
+                'custody_btc': self.config['custody_btc'],
+                'supply_percentage': self.config['supply_percentage'],
+                'custody_notes': self._get_custody_notes(),
+
+                # SECONDARY METRIC: Payment Flow (Daily)
+                'daily_deposits_btc': daily_deposits,
+                'daily_withdrawals_btc': daily_withdrawals,
+                'daily_volume_btc': daily_volume,
+                'payment_notes': self._get_payment_notes(),
+
+                # DERIVED: Consensus Weight
+                'consensus_weight': self.config['consensus_weight'],
+                'weight_calculation': 'custody_primary_flow_secondary',
+                'economic_influence': self._get_influence_level(),
             },
             'bitcoin_config': {
                 'maxconnections': self.config['connections'],
                 'maxmempool': self.config['mempool'],
-                'rpcthreads': 32 if 'tier1' in self.node_type else 16,
+                'rpcthreads': 32 if 'major' in self.node_type else 16,
                 'txindex': 1 if 'exchange' in self.node_type else 0,
             },
             'resources': {
@@ -68,6 +176,38 @@ class EconomicNode:
             },
             'connections': [],  # To be populated later
         }
+
+    def _get_custody_notes(self) -> str:
+        """Generate custody notes based on node type."""
+        notes = {
+            'major_exchange': "Hot wallets + cold storage",
+            'regional_exchange': "Regional focus, strong security practices",
+            'payment_processor': "Operational wallets, minimal custody",
+            'custody_provider': "Institutional custody, cold storage dominant",
+        }
+        return notes.get(self.config['entity_type'], "Standard custody configuration")
+
+    def _get_payment_notes(self) -> str:
+        """Generate payment flow notes based on node type."""
+        notes = {
+            'major_exchange': "High-frequency retail + institutional",
+            'regional_exchange': "Medium-volume regional trading",
+            'payment_processor': "High-frequency merchant payments, operational chokepoint",
+            'custody_provider': "Low-frequency institutional movements",
+        }
+        return notes.get(self.config['entity_type'], "Standard payment flow")
+
+    def _get_influence_level(self) -> str:
+        """Determine influence level based on consensus weight."""
+        weight = self.config['consensus_weight']
+        if weight >= 5.0:
+            return 'critical'
+        elif weight >= 2.0:
+            return 'significant'
+        elif weight >= 0.5:
+            return 'moderate'
+        else:
+            return 'minor'
 
 
 class NetworkGenerator:
@@ -110,15 +250,15 @@ class NetworkGenerator:
         }
     
     def _generate_economic_nodes(self):
-        """Generate Economic Node configurations."""
-        # Distribution of Economic Node types
+        """Generate Economic Node configurations with BCAP-aligned metrics."""
+        # Distribution of Economic Node types (BCAP-aligned)
         type_distribution = [
-            ('exchange_tier1', 0.20),  # 20% are tier 1 exchanges
-            ('exchange_tier2', 0.30),  # 30% are tier 2 exchanges
+            ('major_exchange', 0.20),  # 20% are major exchanges
+            ('regional_exchange', 0.30),  # 30% are regional exchanges
             ('payment_processor', 0.30),  # 30% are payment processors
-            ('custody', 0.20),  # 20% are custody providers
+            ('custody_provider', 0.20),  # 20% are custody providers
         ]
-        
+
         for i in range(self.num_economic):
             # Select type based on distribution
             rand = random.random()
@@ -127,7 +267,7 @@ class NetworkGenerator:
                 cumulative += pct
                 if rand < cumulative:
                     break
-            
+
             node_name = f"economic-{node_type}-{i}"
             economic_node = EconomicNode(node_name, node_type, version="27.0")
             self.nodes.append(economic_node.to_dict())
